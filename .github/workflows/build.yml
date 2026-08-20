@@ -11,7 +11,7 @@ concurrency:
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   SITE_REPO_URL: ${{ vars.SITE_REPO_URL }}
-  IMAGE_NAME: ${{ vars.IMAGE_NAME }}
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/sealos.run
 
 jobs:
   build:
@@ -30,10 +30,6 @@ jobs:
         run: |
           if [ -z "$SITE_REPO_URL" ]; then
             echo "SITE_REPO_URL is not configured in the ci environment." >&2
-            exit 1
-          fi
-          if [ -z "$IMAGE_NAME" ]; then
-            echo "IMAGE_NAME is not configured in the ci environment." >&2
             exit 1
           fi
 
