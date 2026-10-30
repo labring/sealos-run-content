@@ -85,6 +85,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: site
+          build-args: |
+            NEXT_PUBLIC_RYBBIT_HOST=${{ vars.NEXT_PUBLIC_RYBBIT_HOST }}
+            NEXT_PUBLIC_RYBBIT_SITE_ID=${{ vars.NEXT_PUBLIC_RYBBIT_SITE_ID }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
