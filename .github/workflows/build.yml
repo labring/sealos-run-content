@@ -34,7 +34,12 @@ jobs:
           fi
 
       - name: Checkout website repository
-        run: git clone --depth=1 "$SITE_REPO_URL" site
+        env:
+          SITE_REPO_TOKEN: ${{ secrets.SITE_REPO_TOKEN }}
+        run: |
+          auth=$(printf 'x-access-token:%s' "$SITE_REPO_TOKEN" | base64 -w0)
+          echo "::add-mask::$auth"
+          git -c http.extraHeader="Authorization: Basic $auth" clone --depth=1 "$SITE_REPO_URL" site
 
       - name: Compute source hashes
         id: hashes
